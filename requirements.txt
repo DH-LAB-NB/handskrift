@@ -1,8 +1,8 @@
 requests
 requests_toolbelt
 IPython
-random
 lxml
 json
 os
 time
+random
