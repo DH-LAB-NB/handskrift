@@ -2,7 +2,3 @@ requests
 requests_toolbelt
 IPython
 lxml
-json==2.0.9
-os
-time
-random
