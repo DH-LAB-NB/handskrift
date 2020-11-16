@@ -32,7 +32,7 @@ def download_pages(pages, wait=1):
             continue
     return pageDict
 
-def lastopp_transkribus(collId='', s=None, sesamids=None):
+def lastopp_transkribus(collId='', s=None, sesamids=None, skipped=None):
     "last opp dokumenter fra nb.no til en collection i transkribus"
     if s==None:
         print("Har du glemt å logge inn?")
