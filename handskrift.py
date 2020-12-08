@@ -33,10 +33,12 @@ def download_pages(pages, wait=1):
     return pageDict
 
 def lastopp_transkribus(collId='', s=None, sesamids=None, skipped=None):
-    "last opp dokumenter fra nb.no til en collection i transkribus"
+    """last opp dokumenter fra nb.no til en collection i transkribus"""
+    
     if s==None:
         print("Har du glemt å logge inn?")
         return
+    
     skipped = []
     for sesamid in sesamids:
         fail = False
@@ -89,13 +91,15 @@ def lastopp_transkribus(collId='', s=None, sesamids=None, skipped=None):
             skipped.append(sesamid)
             print("-- failed to upload file in ", sesamid, "skipping this sesamid")
 
-def la_transkribus(collId = '', s=None):
-    "Layoutanalyse for dokumenter i en collection"
+def la_transkribus(collId='', docIds=[], s=None):
+    """Layoutanalyse for dokumenter i en collection"""
+    
     if s==None:
         print("Har du glemt å logge inn?")
         return
+    
     docs = s.get('https://transkribus.eu/TrpServer/rest/collections/'+collId+'/list')
-    docIds = [x['docId'] for x in json.loads(docs.content)]
+    if not docIds: docIds = [x['docId'] for x in json.loads(docs.content)]
 
     for docId in docIds:
         LAObj = {'docList': {'docs': [{'docId': docId}]}}
@@ -107,13 +111,15 @@ def la_transkribus(collId = '', s=None):
             print("-- failed to trigger LA for docId ", docId)
             continue
 
-def htr_transkribus(collId='', modelId='', s=None):    
-    "HTR+ tekstgjenkjenning for dokumenter i en collection med gitt modell"
+def htr_transkribus(collId='', modelId='', docIds=[], s=None):    
+    """HTR+ tekstgjenkjenning for dokumenter i en collection med gitt modell"""
+    
     if s==None:
         print("Har du glemt å logge inn?")
         return
+    
     docs = s.get('https://transkribus.eu/TrpServer/rest/collections/'+collId+'/list')
-    docIds = [x['docId'] for x in json.loads(docs.content)]
+    if not docIds: docIds = [x['docId'] for x in json.loads(docs.content)]
 
     for docId in docIds:
         htrObj = {'docId': docId}
@@ -126,10 +132,12 @@ def htr_transkribus(collId='', modelId='', s=None):
             continue
             
 def pylaia_transkribus(collId='', modelId='', s=None):
-    "pylaia tekstgjenkjenning for dokumenter i en collection med gitt modell"
+    """pylaia tekstgjenkjenning for dokumenter i en collection med gitt modell"""
+    
     if s==None:
         print("Har du glemt å logge inn?")
         return
+    
     docs = s.get('https://transkribus.eu/TrpServer/rest/collections/'+collId+'/list')
     docIds = [x['docId'] for x in json.loads(docs.content)]
 
